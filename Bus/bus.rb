@@ -2,16 +2,20 @@ class Bus
 
      attr_reader :route, :destination
   
-    def initialize(route, destination)
-      @route = route
-      @destination = destination
-    #   @total_cash = total_cash
-    #   @pets_sold = 0
+    def initialize(route, destination, passengers)
+        @route = route
+        @destination = destination
+        @passengers = passengers
     end
 
      def drive_method()
          return "Brum brum"
      end
+
+     def passenger_count()
+        return @passengers.size()
+     end
+
 
     # def increase_pets_sold()
     #     @pets_sold += 1

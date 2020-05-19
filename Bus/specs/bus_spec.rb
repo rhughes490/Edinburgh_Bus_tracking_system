@@ -14,7 +14,9 @@ class BusTest < MiniTest::Test
     # @pets = [@pet1, @pet2]
 
     # @pet_shop = PetShop.new("Camelot of Pets", @pets, 1000 )
-    @bus = Bus.new("22", "Glasgow")
+
+    @passengers = [] 
+    @bus = Bus.new("22", "Glasgow", @passengers)
 
   end
 
@@ -29,6 +31,15 @@ class BusTest < MiniTest::Test
     def test_bus_drive_method()
        assert_equal("Brum brum", @bus.drive_method)
     end
+
+
+    def test_bus_passengers_starts_empty()
+        assert_equal(0, @bus.passenger_count())
+    end
+
+    # def test_how_many_passengers()
+    #   assert_equal(0, @passengers.passenger_count())
+    # end
 
   # def test_pet_shop_cash()
   #   assert_equal(1000, @pet_shop.total_cash)
