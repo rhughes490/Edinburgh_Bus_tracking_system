@@ -2,11 +2,9 @@ require('minitest/autorun')
 require('minitest/reporters')
 Minitest::Reporters.use! Minitest::Reporters::SpecReporter.new
 
-require_relative('../pet')
-require_relative('../pet_shop')
-require_relative("../customer")
+require_relative('../Bus')
 
-class PetShopTest < MiniTest::Test
+class BusTest < MiniTest::Test
 
   def setup()
 
@@ -16,13 +14,21 @@ class PetShopTest < MiniTest::Test
     # @pets = [@pet1, @pet2]
 
     # @pet_shop = PetShop.new("Camelot of Pets", @pets, 1000 )
-    @bus = bus.new("22", "Glasgow")
+    @bus = Bus.new("22", "Glasgow")
 
   end
 
-   def test_bus_has_route()
-     assert_equal("22", @bus.route)
-   end
+    def test_bus_has_route()
+      assert_equal("22", @bus.route)
+    end
+
+    def test_bus_has_destination()
+      assert_equal("Glasgow", @bus.destination)
+    end
+
+    def test_bus_drive_method()
+       assert_equal("Brum brum", @bus.drive_method)
+    end
 
   # def test_pet_shop_cash()
   #   assert_equal(1000, @pet_shop.total_cash)

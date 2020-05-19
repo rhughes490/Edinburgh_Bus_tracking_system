@@ -1,14 +1,21 @@
 require("minitest/autorun")
 require("minitest/reporters")
-require_relative("../bus")
-require_relative("../stops")
+require_relative("../passenger")
+# require_relative("../stops")
 Minitest::Reporters.use! Minitest::Reporters::SpecReporter.new
 
-class CustomerTest < MiniTest::Test
+class PassengerTest < MiniTest::Test
 
     def setup()
-        @new_pet = Pet.new("Blue", :cat, "British Shorthair", 500)
-        @customer = Customer.new("John", 1000)
+        @new_passenger = Passenger.new("Craig", 34)
+    end
+
+    def test_passenger_name()
+        assert_equal("Craig", @new_passenger.name())
+    end
+
+    def test_passenger_age()
+        assert_equal(34, @new_passenger.age())
     end
 
 #     def test_customer_has_name()
@@ -35,4 +42,4 @@ class CustomerTest < MiniTest::Test
 #         assert_equal(1500, @customer.get_total_value_of_pets())
 #     end
 
-# end
+end

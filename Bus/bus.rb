@@ -9,9 +9,9 @@ class Bus
     #   @pets_sold = 0
     end
 
-    #  def stock_count()
-    #      return @pets.size()
-    #  end
+     def drive_method()
+         return "Brum brum"
+     end
 
     # def increase_pets_sold()
     #     @pets_sold += 1

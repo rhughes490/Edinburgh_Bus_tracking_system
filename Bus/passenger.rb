@@ -8,6 +8,10 @@ class Passenger
         @age = age
     end
 
+    # def passenger_name()
+    #     return @passenger.name()
+    # end
+
 end
 
 
