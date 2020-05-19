@@ -45,9 +45,28 @@ class BusTest < MiniTest::Test
   end
 
   def test_how_many_bus_passengers()
-    @bus.drop_off(@new_passenger)
-    assert_equal(0, @bus.passenger_count())
+    @bus.pick_up(@new_passenger)
+    @bus.pick_up(@new_passenger)
+    @bus.pick_up(@new_passenger)
+    @bus.drop_off()
+    assert_equal(2, @bus.passenger_count())
 end
+
+# def test_can_add_pet_to_stock()
+#   new_pet = Pet.new("Bors The Younger", :cat, "Cornish Rex", 700)
+#   @pet_shop.add_pet(new_pet)
+#   assert_equal(3, @pet_shop.stock_count())
+# end
+
+# def test_can_remove_pet_from_stock()
+#   @pet_shop.remove_pet(@pet1)
+#   assert_equal(1, @pet_shop.stock_count())
+# end
+
+# def test_how_many_bus_passengers()
+#   @bus.empty()
+#   assert_equal(0, @bus.passenger_count())
+# end
 
 # def test_can_add_pet_to_stock()
   #   @pet_shop.add_pet(@new_pet)

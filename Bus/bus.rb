@@ -20,8 +20,8 @@ class Bus
         @passengers.push(passenger1)
     end
 
-    def drop_off(passenger2)
-        @passengers.delete(passenger2)
+    def drop_off()
+        @passengers.pop()
     end
 
     # def increase_pets_sold()
