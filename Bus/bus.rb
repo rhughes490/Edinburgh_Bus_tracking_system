@@ -16,6 +16,9 @@ class Bus
         return @passengers.size()
      end
 
+    def add_passenger(passenger)
+        @passengers.push(passenger)
+    end
 
     # def increase_pets_sold()
     #     @pets_sold += 1
@@ -23,10 +26,6 @@ class Bus
 
     # def increase_total_cash(amount)
     #     @total_cash += amount
-    # end
-
-    # def add_pet(pet)
-    #     @pets.push(pet)
     # end
 
     # def remove_pet(pet)

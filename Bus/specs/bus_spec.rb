@@ -37,6 +37,20 @@ class BusTest < MiniTest::Test
         assert_equal(0, @bus.passenger_count())
     end
 
+    def test_how_many_bus_passengers()
+      #arrange
+      #act
+      @bus.add_passenger(@new_passenger)
+      assert_equal(1, @bus.passenger_count())
+  end
+
+
+# def test_can_add_pet_to_stock()
+  #   @pet_shop.add_pet(@new_pet)
+  #   assert_equal(3, @pet_shop.stock_count()) #part of this test is already done earlier
+  # end
+
+
     # def test_how_many_passengers()
     #   assert_equal(0, @passengers.passenger_count())
     # end
