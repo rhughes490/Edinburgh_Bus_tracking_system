@@ -2,126 +2,88 @@ require('minitest/autorun')
 require('minitest/reporters')
 Minitest::Reporters.use! Minitest::Reporters::SpecReporter.new
 
-require_relative('../Bus')
+require_relative('../bus.rb')
+require_relative('../passenger.rb')
+require_relative('../stops.rb')
 
 class BusTest < MiniTest::Test
 
   def setup()
-
-    # @pet1 = Pet.new("Sir Percy", :cat, "British Shorthair", 500)
-    # @pet2 = Pet.new("King Arthur", :dog, "Husky", 900)
-
-    # @pets = [@pet1, @pet2]
-
-    # @pet_shop = PetShop.new("Camelot of Pets", @pets, 1000 )
-
-    @passengers = [] 
-    @bus = Bus.new("22", "Glasgow", @passengers)
-
+    @bus = Bus.new(22, "Ocean Terminal")
+    @passenger1 = Passenger.new("John", 30)
+    @passenger2 = Passenger.new("Mary", 63)
+    @passenger3 = Passenger.new("Bob", 40)
   end
 
-    def test_bus_has_route()
-      assert_equal("22", @bus.route)
-    end
-
-    def test_bus_has_destination()
-      assert_equal("Glasgow", @bus.destination)
-    end
-
-    def test_bus_drive_method()
-       assert_equal("Brum brum", @bus.drive_method)
-    end
-
-
-    def test_bus_passengers_starts_empty()
-        assert_equal(0, @bus.passenger_count())
-    end
-
-    def test_how_many_bus_passengers()
-      #arrange
-      #act
-      @bus.pick_up(@new_passenger)
-      assert_equal(1, @bus.passenger_count())
+  def test_can_create_bus()
+    assert_equal(Bus, @bus.class())
   end
 
-  def test_how_many_bus_passengers()
-    @bus.pick_up(@new_passenger)
-    @bus.pick_up(@new_passenger)
-    @bus.pick_up(@new_passenger)
-    @bus.drop_off()
+  def test_bus_route_number()
+    assert_equal(22, @bus.route_number())
+  end
+
+  def test_bus_destination()
+    assert_equal("Ocean Terminal", @bus.destination())
+  end
+
+  def test_bus_can_drive()
+    assert_equal("Brum brum", @bus.drive())
+  end
+
+  def test_bus_starts_with_no_passengers()
+    assert_equal(0, @bus.passenger_count())
+  end
+
+  def test_add_passenger()
+    @bus.pick_up(@passenger1)
+    assert_equal(1, @bus.passenger_count())
+  end
+
+  def test_add_two_passengers()
+    @bus.pick_up(@passenger1)
+    @bus.pick_up(@passenger2)
     assert_equal(2, @bus.passenger_count())
-end
+  end
 
-# def test_can_add_pet_to_stock()
-#   new_pet = Pet.new("Bors The Younger", :cat, "Cornish Rex", 700)
-#   @pet_shop.add_pet(new_pet)
-#   assert_equal(3, @pet_shop.stock_count())
-# end
+  def test_drop_off_passenger()
+    @bus.pick_up(@passenger1)
+    @bus.pick_up(@passenger2)
+    @bus.drop_off(@passenger1)
+    assert_equal(1, @bus.passenger_count())
+  end
 
-# def test_can_remove_pet_from_stock()
-#   @pet_shop.remove_pet(@pet1)
-#   assert_equal(1, @pet_shop.stock_count())
-# end
+  def test_empty_bus()
+    @bus.pick_up(@passenger1)
+    @bus.pick_up(@passenger2)
+    @bus.empty()
+    assert_equal(0, @bus.passenger_count())
+  end
 
-# def test_how_many_bus_passengers()
-#   @bus.empty()
-#   assert_equal(0, @bus.passenger_count())
-# end
+  def test_pick_up_from_stop()
+    @stop1 = BusStop.new("Elm Row")
+    @stop1.add_to_queue(@passenger1)
+    @bus.pick_up_from_stop(@stop1)
+    assert_equal(1, @bus.passenger_count())
+    assert_equal(0, @stop1.queue_length())
+  end
 
-# def test_can_add_pet_to_stock()
-  #   @pet_shop.add_pet(@new_pet)
-  #   assert_equal(3, @pet_shop.stock_count()) #part of this test is already done earlier
-  # end
+  def test_pick_up_from_stop__multiple_people()
+    @stop1 = BusStop.new("Elm Row")
+    @stop1.add_to_queue(@passenger1)
+    @stop1.add_to_queue(@passenger2)
+    @bus.pick_up_from_stop(@stop1)
+    assert_equal(2, @bus.passenger_count())
+    assert_equal(0, @stop1.queue_length())
+  end
 
-
-    # def test_how_many_passengers()
-    #   assert_equal(0, @passengers.passenger_count())
-    # end
-
-  # def test_pet_shop_cash()
-  #   assert_equal(1000, @pet_shop.total_cash)
-  # end
-  
-  # def test_pet_shop_pets_sold_starts_at_0()
-  #   assert_equal(0, @pet_shop.pets_sold)
-  # end
-  
-  # def test_pet_shop_stock_count()
-  #   assert_equal(2, @pet_shop.stock_count())
-  # end
-
-  # def test_increase_pets_sold()
-  #   @pet_shop.increase_pets_sold()    
-  #   assert_equal(1, @pet_shop.pets_sold) #part of this test is already done earlier
-  # end
-  
-  # def test_can_increase_total_cash()
-  #   @pet_shop.increase_total_cash(500)
-  #   assert_equal(1500, @pet_shop.total_cash) #part of this test is already done earlier
-  # end
-  
-  # def test_can_add_pet_to_stock()
-  #   @pet_shop.add_pet(@new_pet)
-  #   assert_equal(3, @pet_shop.stock_count()) #part of this test is already done earlier
-  # end
-  
-  # def test_can_remove_pet_from_stock()
-  #   @pet_shop.remove_pet(@pet1)
-  #   assert_equal(1, @pet_shop.stock_count()) #part of this test is already done earlier
-  # end
-
-  # def test_can_find_pet_by_name()
-  #     pet = @pet_shop.find_pet_by_name("Sir Percy")
-  #     assert_equal("Sir Percy", pet.name)
-  # end
-
-  # def test_can_sell_pet_to_customer()
-  #   customer = Customer.new("John", 1000)
-  #   @pet_shop.sell_pet_to_customer("Sir Percy", customer)
-  #   assert_equal(1, customer.pet_count())
-  #   assert_equal(1, @pet_shop.stock_count())
-  #   assert_equal(1, @pet_shop.pets_sold())
-  #   assert_equal(1500, @pet_shop.total_cash())
-  # end
+  def test_pick_up_from_stop__bus_does_not_start_empty()
+    @bus.pick_up(@passenger3)
+    @stop1 = BusStop.new("Elm Row")
+    @stop1.add_to_queue(@passenger1)
+    @stop1.add_to_queue(@passenger2)
+    @bus.pick_up_from_stop(@stop1)
+    assert_equal(3, @bus.passenger_count())
+  end
 
 end

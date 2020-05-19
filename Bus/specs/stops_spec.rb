@@ -1,27 +1,42 @@
-# require("minitest/autorun")
-# require('minitest/reporters')
-# Minitest::Reporters.use! Minitest::Reporters::SpecReporter.new
+require('minitest/autorun')
+require('minitest/reporters')
+Minitest::Reporters.use! Minitest::Reporters::SpecReporter.new
 
-# require_relative("../pet")
+require_relative('../stops.rb')
+require_relative('../passenger.rb')
 
-# class TestPet < MiniTest::Test
-# 	def setup
-# 		@pet1 = Pet.new("Sir Percy", :cat, "British Shorthair", 500)
-# 	end
+class BusStopTest < MiniTest::Test
 
-# 	def test_pet_has_name()
-# 		assert_equal("Sir Percy", @pet1.name)
-# 	end
+  def setup()
+    @stop = BusStop.new("Waverley Station")
+    @passenger1 = Person.new("John", 30)
+    @passenger2 = Person.new("Mary", 63)
+  end
 
-# 	def test_pet_has_type()
-# 		assert_equal(:cat, @pet1.type)
-# 	end
+  def test_can_create_stop()
+    assert_equal(BusStop, @stop.class())
+  end
 
-# 	def test_pet_has_breed()
-# 		assert_equal("British Shorthair", @pet1.breed)
-# 	end
+  def test_queue_starts_empty()
+    assert_equal(0, @stop.queue_length())
+  end
 
-# 	def test_pet_has_price()
-# 		assert_equal(500, @pet1.price)
-# 	end
-# end
+  def test_add_person_to_queue()
+    @stop.add_to_queue(@passenger1)
+    assert_equal(1, @stop.queue_length())
+  end
+
+  def test_add_multiple_people_to_queue()
+    @stop.add_to_queue(@passenger1)
+    @stop.add_to_queue(@passenger2)
+    assert_equal(2, @stop.queue_length())
+  end
+
+  def test_clear_queue()
+    @stop.add_to_queue(@passenger1)
+    @stop.add_to_queue(@passenger2)
+    @stop.clear_queue()
+    assert_equal(0, @stop.queue_length())
+  end
+
+end

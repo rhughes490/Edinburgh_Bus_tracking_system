@@ -1,59 +1,39 @@
 class Bus
 
-     attr_reader :route, :destination
+    attr_reader :route_number, :destination
   
-    def initialize(route, destination, passengers)
-        @route = route
-        @destination = destination
-        @passengers = passengers
+    def initialize(route_number, destination)
+      @route_number = route_number
+      @destination = destination
+      @passengers = []
     end
-
-     def drive_method()
-         return "Brum brum"
-     end
-
-     def passenger_count()
-        return @passengers.size()
-     end
-
-    def pick_up(passenger1)
-        @passengers.push(passenger1)
+  
+    def drive()
+      return "Brum brum"
     end
-
-    def drop_off()
-        @passengers.pop()
+  
+    def passenger_count()
+      return @passengers.length()
     end
-
-    # def increase_pets_sold()
-    #     @pets_sold += 1
-    # end
-
-    # def increase_total_cash(amount)
-    #     @total_cash += amount
-    # end
-
-    # def remove_pet(pet)
-    #     @pets.delete(pet)
-    # end
-
-    # def find_pet_by_name(name)
-    #     for pet in @pets
-    #         if pet.name == name
-    #             return pet
-    #         end
-    #     end
-    #     return nil
-    # end
-
-    # def sell_pet_to_customer(name_of_pet, customer)
-    #     pet = find_pet_by_name(name_of_pet)
-    #     if pet == nil
-    #         return
-    #     end
-    #     customer.add_pet(pet)
-    #     remove_pet(pet)
-    #     increase_pets_sold()
-    #     increase_total_cash(pet.price)
-    # end
+  
+    def pick_up(person)
+      @passengers << person
+    end
+  
+    def drop_off(person)
+      index = @passengers.index(person)
+      @passengers.slice!(index, 1)
+    end
+  
+    def empty()
+      @passengers.clear()
+    end
+  
+    def pick_up_from_stop(stop)
+      for person in stop.queue()
+        pick_up(person)
+      end
+      stop.clear_queue()
+    end
   
   end
