@@ -40,10 +40,14 @@ class BusTest < MiniTest::Test
     def test_how_many_bus_passengers()
       #arrange
       #act
-      @bus.add_passenger(@new_passenger)
+      @bus.pick_up(@new_passenger)
       assert_equal(1, @bus.passenger_count())
   end
 
+  def test_how_many_bus_passengers()
+    @bus.drop_off(@new_passenger)
+    assert_equal(0, @bus.passenger_count())
+end
 
 # def test_can_add_pet_to_stock()
   #   @pet_shop.add_pet(@new_pet)

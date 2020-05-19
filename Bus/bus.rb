@@ -16,8 +16,12 @@ class Bus
         return @passengers.size()
      end
 
-    def add_passenger(passenger)
-        @passengers.push(passenger)
+    def pick_up(passenger1)
+        @passengers.push(passenger1)
+    end
+
+    def drop_off(passenger2)
+        @passengers.delete(passenger2)
     end
 
     # def increase_pets_sold()
